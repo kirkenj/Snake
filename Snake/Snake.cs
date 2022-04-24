@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Snake
+﻿namespace Snake
 {
     enum Direction
     {
@@ -14,14 +8,20 @@ namespace Snake
         right = 3
     }
 
-    
-
     internal class Snake : ISnake, IDrawable
     {
         private Direction direction;
-
+        public Snake(Point tail, int length, Direction direction)
+        {
+            Direction = direction;
+            for (int i = 0; i < length; i++)
+            {
+                var p = new Point(tail);
+                p.Move(i, direction);
+                Points.Add(p);
+            }
+        }
         public List<Point> Points { get; } = new List<Point>();
-
         public Direction Direction { get => direction; 
             set 
             { 
@@ -43,7 +43,6 @@ namespace Snake
                 }
             }
         }
-        
         public bool Eat(Point food)
         {
             var head = GetNextPoint();
@@ -57,7 +56,6 @@ namespace Snake
 
             return false;
         }
-
         internal void HandleKey(ConsoleKey key)
         {
             if (key == ConsoleKey.LeftArrow)
@@ -77,18 +75,6 @@ namespace Snake
                 Direction = Direction.down;
             }
         }
-
-        public Snake(Point tail, int length, Direction direction)
-        {
-            Direction = direction;
-            for (int i = 0; i < length; i++)
-            {
-                var p = new Point(tail);
-                p.Move(i, direction);
-                Points.Add(p);
-            }
-        }
-
         public void Move()
         {
             var p = Points.First();
@@ -98,21 +84,15 @@ namespace Snake
             h.Draw();
             p.Clear();
         }
-
-        private Point GetNextPoint()
+        public Point GetNextPoint()
         {
             Point head = Points.Last();
             Point nextPoint = new(head);
             nextPoint.Move(1, Direction);
             return nextPoint;
         }
-
-        public void Draw()
-        {
-            foreach (var drawable in Points)
-            {
-                drawable.Draw();
-            }
-        }
+        public void Draw() => Points.ForEach(p => p.Draw());
+        public bool IsHitTail() => IsHit(GetNextPoint());
+        public bool IsHit(Point point) => Points.Any(p => p.Y == point.Y && p.X == point.X);
     }
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    internal interface IPoint : IHitable
+    internal interface IHitable
     {
-        int X { get; set; }
-        int Y { get; set; }
-        char Sym { get; set; }
+        bool IsHit(Point point);
     }
 }

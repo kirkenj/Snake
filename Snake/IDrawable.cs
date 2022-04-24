@@ -1,7 +1,7 @@
 ﻿namespace Snake
 {
-    internal interface IDrawable
+    public interface IDrawable
     {
-        public void Draw();
+       public abstract void Draw();
     }
 }

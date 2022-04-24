@@ -5,22 +5,19 @@
         Horisontal = 1,
         Vertical = 2
     }
-
     internal class Line : Point, ILine, IDrawable
     {
         private int _length;
         public Arrangement Arrangement { get; set; }
         int ILine.Length { get => _length; set => _length = value > 0 ? value : _length; }
-
         public Line(Point point, int len, Arrangement arrangement = Arrangement.Horisontal)
         {
-            this.X = point.X;
-            this.Y = point.Y;
-            this._length = len;
-            this.Sym = point.Sym;
-            this.Arrangement = arrangement;
+            X = point.X;
+            Y = point.Y;
+            _length = len;
+            Sym = point.Sym;
+            Arrangement = arrangement;
         }
-
         public new void Draw()
         {
             if (Arrangement == Arrangement.Horisontal)
@@ -40,7 +37,6 @@
                 }
             }
         }
-
         public new bool IsHit(Point point)
         {
             if (Arrangement == Arrangement.Horisontal)

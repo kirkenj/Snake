@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    internal interface ILine : IPoint
+    internal interface ILine : IPoint, IDrawable
     {
         int Length { get; set; }
     }
